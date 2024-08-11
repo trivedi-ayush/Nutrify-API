@@ -103,7 +103,6 @@ const updatepassword = async (req, res) => {
   }
 };
 
-
 //bmi
 const updateusermetrics = async (req, res) => {
   const { userId, height, weight } = req.body;
@@ -119,6 +118,7 @@ const updateusermetrics = async (req, res) => {
 
     await user.save();
 
+    const bmi = user.calculateBMI();
     const bmiClassification = user.getBMIClassification();
     const recommendedCalorieIntake = user.getRecommendedCalorieIntake();
 
@@ -147,6 +147,7 @@ const getusermetrics = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
+    const bmi = user.calculateBMI();
     const bmiClassification = user.getBMIClassification();
     const recommendedCalorieIntake = user.getRecommendedCalorieIntake();
 
